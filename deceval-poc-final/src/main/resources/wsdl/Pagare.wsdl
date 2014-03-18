@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://www.deceval.com/comercial/pagares/entidad/Pagares"
+                  xmlns:enc="http://www.deceval.com/comunes/modelos/xsd/Encabezados"
+                  xmlns:modelo="http://www.deceval.com/comercial/modelos/xsd/Pagares"
+                  xmlns:error="http://www.deceval.com/comunes/modelos/xsd/Errores"
+                  targetNamespace="http://www.deceval.com/comercial/pagares/entidad/Pagares"
+                  name="Pagares">
+    
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.deceval.com/comunes/modelos/xsd/Encabezados" schemaLocation="EncabezadoEntrada.xsd"/>
+            <xsd:import namespace="http://www.deceval.com/comercial/modelos/xsd/Pagares" schemaLocation="Pagare.xsd"/>
+            <xsd:import namespace="http://www.deceval.com/comunes/modelos/xsd/Errores" schemaLocation="Errores.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="EncabezadoEntrada">
+        <wsdl:part name="EncabezadoEntrada" element="enc:EncabezadoEntrada"/>
+    </wsdl:message>
+    
+    <wsdl:message name="Pagares">
+        <wsdl:part name="PagareCrear" element="modelo:Pagares"/>
+    </wsdl:message>
+    
+    <wsdl:message name="ResultadoCreacion">
+        <wsdl:part name="ResultadoCreacion" element="modelo:ResultadoCreacion"/>
+    </wsdl:message>
+    
+    <wsdl:message name="MensajeError">
+        <wsdl:part name="MensajeError" element="error:ErrorGenerico"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="PagaresPortType">
+        <wsdl:operation name="Crear">
+            <wsdl:input message="tns:Pagares"/>
+            <wsdl:output message="tns:ResultadoCreacion"/>
+            <wsdl:fault name="MensajeError" message="tns:MensajeError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="PagaresBinding" type="tns:PagaresPortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Crear">
+            <soap12:operation soapAction="http://www.deceval.com/comercial/pagares/entidad/Pagares/crear"/>
+            <wsdl:input>
+                <soap12:header message="tns:EncabezadoEntrada" part="EncabezadoEntrada" use="literal"/>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="MensajeError">
+                <soap12:fault name="MensajeError" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="Pagares">
+        <wsdl:port name="PagaresPort" binding="tns:PagaresBinding">
+            <soap12:address location="http://localhost:8080/servicios/Pagares"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

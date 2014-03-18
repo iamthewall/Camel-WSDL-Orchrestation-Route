@@ -20,7 +20,7 @@
   <context:annotation-config/>	   
 
   <!-- WS ENTRADA PAGARES SOA -->
-  <cxf:cxfEndpoint id="wsLocal" address="http://localhost:9000/PagareSOA"
+  <cxf:cxfEndpoint id="wsLocal" address="http://virtfuse:9000/PagareSOA"
 		endpointName="tns:PagaresPort"
 		serviceName="tns:Pagares" 
 		serviceClass="com.deceval.comercial.pagares.entidad.pagares.PagaresPortType"

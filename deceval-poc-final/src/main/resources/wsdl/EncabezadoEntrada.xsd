@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.deceval.com/comunes/modelos/xsd/Encabezados"
+            targetNamespace="http://www.deceval.com/comunes/modelos/xsd/Encabezados"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified">
+
+    <xsd:element name="EncabezadoEntrada" type="tns:EncabezadoEntradaType"/>
+    <xsd:element name="EncabezadoSalida" type="tns:EncabezadoSalidaType"/>
+    
+    <xsd:complexType name="EncabezadoEntradaType">
+        <xsd:sequence>
+            <xsd:annotation>
+                <xsd:documentation>Tipo complejo que representa la estructura del encabezado de entrada de los servicios</xsd:documentation>
+            </xsd:annotation>
+            <xsd:sequence>
+                <xsd:element name="Fecha" type="xsd:dateTime" minOccurs="1" nillable="true"/>
+                <xsd:element name="Hora" type="xsd:string" minOccurs="1"  nillable="true"/>
+                <xsd:element name="Usuario" type="xsd:string" minOccurs="1" nillable="true"/>
+                <xsd:element name="CodigoUsuario" type="xsd:int" minOccurs="1" nillable="true"/>
+                <xsd:element name="Canal" type="xsd:short" minOccurs="1" nillable="true"/>
+                <xsd:element name="OrigenCliente" type="xsd:string" minOccurs="1" nillable="true"/>
+                <xsd:element name="IdentificadorSesion" type="xsd:string" minOccurs="1" nillable="true"/>
+                <xsd:element name="IdentificadorPeticion" type="xsd:string" minOccurs="1" nillable="true"/>
+            </xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="EncabezadoSalidaType">
+        <xsd:sequence>
+            <xsd:annotation>
+                <xsd:documentation>Tipo complejo que representa la estructura del encabezado de salida de los servicios</xsd:documentation>
+            </xsd:annotation>
+            <xsd:sequence>
+                <xsd:element name="Fecha" type="xsd:dateTime" minOccurs="1" nillable="true"/>
+                <xsd:element name="Hora" type="xsd:string" minOccurs="1"  nillable="true"/>
+                <xsd:element name="Canal" type="xsd:short" minOccurs="1" nillable="true"/>
+                <xsd:element name="IdentificadorPeticion" type="xsd:string" minOccurs="1" nillable="true"/>
+            </xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+</xsd:schema>

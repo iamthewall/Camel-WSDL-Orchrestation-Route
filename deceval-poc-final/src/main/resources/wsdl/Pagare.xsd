@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.deceval.com/comercial/modelos/xsd/Pagares"
+            targetNamespace="http://www.deceval.com/comercial/modelos/xsd/Pagares"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified">
+    
+    <xsd:element name="Pagares" type="tns:ListaPagaresType"/>
+    <xsd:element name="ResultadoCreacion" type="tns:ResultadoCreacionType"/>
+    
+    <xsd:complexType name="PagareType">
+        <xsd:sequence>
+            <xsd:element name="NitEmisor" type="xsd:string" nillable="true" minOccurs="1"/>
+            <xsd:element name="idClaseDefinicionDocumento" type="xsd:long" nillable="true" minOccurs="1"/>
+            <xsd:element name="FechaGrabacion" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="TipoPagare" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="NumeroPagareEntidad" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="NumeroCredito" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="NumeroReferencia" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="FechaDesembolso" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="TipoOtorgante" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="OtorganteNumId" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="OtorganteCuenta" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="ApoderadoTipoId" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="ApoderadoNumId" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ApoderadoCuenta" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="ListaCodeudoresAvalistasPagare" type="tns:ListaGiradoresType" nillable="true" minOccurs="0"/>
+            <xsd:element name="CreditoReembolsableEn" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="NumUnidadesUVR" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="ValorPesosDesembolso" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="ValorPesosDiligenciamiento" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="TasaInteresRenumEA" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="BaseLiquidacionTasa" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="TasaInteres" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Modalidad" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="DtfDessembolso" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="Spreed" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="TasaRedescuento" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="DtfEA" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="BaseLiquidacionPlazo" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PlazoCreditoDe" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="PlazoCreditoHasta" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="PeriodoGracia" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="PeriodoGraciaDe" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="PeriodoGraciaHasta" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="PeriodoMuerto" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="PeriodoMuertoDe" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="PeriodoMuertoHasta" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="ModalidadPagosInteres" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="FechaPagoPrimerCuota" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="ModalidadPagoCapital" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="FechaPagoPrimerCuotaCapital" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="OtraModalidadPago" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Cuotas" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="FechaPagoPrimerCuotaInteres" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="ValorCuotaPesos" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="ValorCuotaUVR" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="PorcentAmortizacionMensual" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="FechaPagoPrimerCuotaMensual" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="PorcentAmortizacionSemestral" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="FechaPagoPrimerCuotaSemestral" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="CiudadDesembolso" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Departamento" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Pais" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="CodOficina" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Regional" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="AutorizaDebitoAutomatico" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="Cuenta" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="AdquisicionVivienda" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="ConstruccionViviendaIndividual" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="MejoramientoViviendaInterSoci" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="OtroDestino" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="DestinoOperacion" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Vis" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="NoVis" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="ListaAmortizaciones" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="CiConCuotasExtras" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="CiValorCuotaExtra" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="CiNumCuotasExtras" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="CiCEPagaderaCada" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="CiCEApartirDelMes" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="IdDocumentoPagare" nillable="true" type="xsd:long" minOccurs="1"/>
+            <xsd:element name="MensajeRespuesta" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ListaGiradoresType" nillable="true" type="tns:ListaGiradoresType" minOccurs="0"/>
+            <xsd:element name="EmpresaOtorgante" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="CiudadCreacion" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="DeptoCreacion" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PaisCreacion" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ValorPesosDesembolsoLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ValorPesosActual" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="ValorCapitalNumero" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="ValorCapitalLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="MargenRedescuento" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="PuntosPorcentualesRedescuento" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="ValorDesembolsoUVRLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="TasaInteresRenumEALetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="TasaInteresMora" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="FechaVencimientoFinanciero" nillable="true" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="PlazoNumero" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="PlazoLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PeriodicidadPlazo" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PeriodoGraciaNumero" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="PeriodoGraciaLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PeriodicidadGracia" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PeriodoMuertoNumero" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="PeriodoMuertoLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PeriodicidadMuerto" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="NumCuotasLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ValorCuotaPesosLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ValorCuotaUVRLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ValorInteresesNumero" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="ValorInteresesLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="PorcentajeComision" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="PorcentajeCobertura" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="GarantiaAdicional" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="DiaPago" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="CiConPeriodoGracia" nillable="true" type="xsd:boolean" minOccurs="1"/>
+            <xsd:element name="TasaNominal" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="TasaNominalLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="TasaInteresMoraLetras" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="TextoAdicional" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="ListaArchivosAdjuntosType" type="tns:ListaArchivosAdjuntosType" nillable="true" minOccurs="0"/>
+            <xsd:element name="SeguroVida" nillable="true" type="xsd:decimal" minOccurs="1"/>
+            <xsd:element name="Aval" nillable="true" type="xsd:decimal" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ResultadoCreacionType">
+        <xsd:sequence>
+            <xsd:element name="ListaRespusta" nillable="true" type="tns:PagareType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ListaGiradoresType">
+        <xsd:sequence>
+            <xsd:element name="girador" type="tns:GiradorType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="GiradorType">
+        <xsd:sequence>
+            <xsd:element name="Tipo" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="Identificacion" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Cuenta" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="Rol" nillable="true" type="xsd:int" minOccurs="1"/>
+            <xsd:element name="PersonaRepresentada" nillable="true" type="xsd:long" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ListaPagaresType">
+        <xsd:sequence>
+            <xsd:element name="Pagare" type="tns:PagareType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ListaArchivosAdjuntosType">
+        <xsd:sequence>
+            <xsd:element name="ArchivoAdjuntoType" type="tns:ArchivoAdjuntoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+            
+    <xsd:complexType name="ArchivoAdjuntoType">
+        <xsd:sequence>
+            <xsd:element name="NombreArchivo" nillable="true" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="Contenido" nillable="true" type="xsd:string" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
