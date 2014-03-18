@@ -1,0 +1,28 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:aud="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria" xmlns:enc="http://www.deceval.com/comunes/modelos/xsd/Encabezados">
+   <soap:Header/>
+   <soap:Body>
+      <aud:Auditoria>
+         <enc:EncabezadoEntrada>
+         	<!--
+            <enc:Fecha>2002-05-30T09:00:00</enc:Fecha>
+            -->
+            <enc:Fecha>${headers.fechaActual}</enc:Fecha>
+            <enc:Hora>${headers.horaActual}</enc:Hora>
+            <enc:Usuario>${headers.usuario}</enc:Usuario>
+            <enc:CodigoUsuario>${headers.codigoUsuario}</enc:CodigoUsuario>
+            <enc:Canal>1</enc:Canal>
+            <enc:OrigenCliente>1</enc:OrigenCliente>
+            <enc:IdentificadorSesion>1</enc:IdentificadorSesion>
+            <enc:IdentificadorPeticion>1</enc:IdentificadorPeticion>
+         </enc:EncabezadoEntrada>
+         <aud:NombreServicio>${headers.nombreServicio}</aud:NombreServicio>
+         <aud:OperacionInvocada>1</aud:OperacionInvocada>
+         <aud:FechaInvocacion>2002-05-30T09:00:00</aud:FechaInvocacion>
+         <aud:OrigenConsumidor>1</aud:OrigenConsumidor>
+         <aud:TiempoProcesamiento>1</aud:TiempoProcesamiento>
+         <aud:ProcesamientoExitoso>1</aud:ProcesamientoExitoso>
+         <aud:MensajePeticion>1</aud:MensajePeticion>
+         <aud:MensajeRespuesta>1</aud:MensajeRespuesta>
+      </aud:Auditoria>
+   </soap:Body>
+</soap:Envelope>

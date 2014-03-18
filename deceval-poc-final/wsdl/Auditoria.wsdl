@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://www.deceval.com.co/tecnologia/auditoria/util/Auditoria"
+                  xmlns:modelo="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria"
+                  xmlns:error="http://www.deceval.com/comunes/modelos/xsd/Errores"
+                  targetNamespace="http://www.deceval.com.co/tecnologia/auditoria/util/Auditoria"
+                  name="Auditoria">
+    
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria" schemaLocation="Auditoria.xsd"/>
+            <xsd:import namespace="http://www.deceval.com/comunes/modelos/xsd/Errores" schemaLocation="Errores.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="Auditoria">
+        <wsdl:part name="Auditoria" element="modelo:Auditoria"/>
+    </wsdl:message>
+    
+    <wsdl:message name="ResultadoAuditoria">
+        <wsdl:part name="ResultadoAuditoria" element="modelo:ResultadoAuditoria"/>
+    </wsdl:message>
+    
+    <wsdl:message name="MensajeError">
+        <wsdl:part name="MensajeError" element="error:ErrorGenerico"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="AuditoriaPortType">
+        <wsdl:operation name="Auditar">
+            <wsdl:input message="tns:Auditoria"/>
+            <wsdl:output message="tns:ResultadoAuditoria"/>
+            <wsdl:fault name="MensajeError" message="tns:MensajeError"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="AuditoriaBinding" type="tns:AuditoriaPortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Auditar">
+            <soap12:operation soapAction="Auditar"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="MensajeError">
+                <soap12:fault name="MensajeError" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="Auditoria">
+        <wsdl:port name="AuditoriaPort" binding="tns:AuditoriaBinding">
+            <soap12:address location="http://localhost:8080/servicios/Auditoria"/>
+        </wsdl:port>
+    </wsdl:service>
+    
+</wsdl:definitions>

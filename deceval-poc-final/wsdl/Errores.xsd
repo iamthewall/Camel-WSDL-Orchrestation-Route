@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.deceval.com/comunes/modelos/xsd/Errores"
+            targetNamespace="http://www.deceval.com/comunes/modelos/xsd/Errores"
+            attributeFormDefault="qualified"
+            elementFormDefault="qualified">
+    
+    <xsd:element name="ErrorGenerico" type="tns:ErrorGenericoType"/>
+    
+    <xsd:complexType name="ErrorGenericoType">
+        <xsd:sequence>
+            <xsd:element name="TipoValidacion" type="tns:TipoValidacionType"/>
+            <xsd:element name="Codigo" type="tns:CodigoType"/>
+            <xsd:element name="Mensaje" type="tns:MensajeType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:simpleType name="TipoValidacionType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Estructura"/>
+            <xsd:enumeration value="Negocio"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="CodigoType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="MensajeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>
