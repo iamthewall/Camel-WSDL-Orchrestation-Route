@@ -68,7 +68,7 @@
   <!-- BEAN STORE OBJECTS -->  
   <bean class="com.redhat.demo.deceval2.Store" id="store"/>
 
-  <camelContext trace="false" streamCache="true" id="camelContext" xmlns="http://camel.apache.org/schema/spring" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:enc="http://www.deceval.com/comunes/modelos/xsd/Encabezados" xmlns:ns2="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario" xmlns:ns3="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria">
+  <camelContext trace="false" streamCache="true" id="Camel-WSDL" xmlns="http://camel.apache.org/schema/spring" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:enc="http://www.deceval.com/comunes/modelos/xsd/Encabezados" xmlns:ns2="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario" xmlns:ns3="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria">
     <route>
         <from uri="cxf:bean:wsLocal?dataFormat=MESSAGE&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy"/>
         <log message="Recibiendo invocacion!\n ${body}"/>
