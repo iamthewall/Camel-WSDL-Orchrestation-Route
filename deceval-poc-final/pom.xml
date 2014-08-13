@@ -100,7 +100,7 @@
 	</dependency>
 
 
-	<!-- para el marshall/unmarshall con SOAP -->
+	<!-- SOAP MARSHAL AND UNMARSHAL -->
 	<dependency>
 		<groupId>org.apache.camel</groupId>
 		<artifactId>camel-soap</artifactId>
