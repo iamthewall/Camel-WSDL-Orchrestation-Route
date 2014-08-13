@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.redhat</groupId>
-  <artifactId>POC-Fuse-Deceval</artifactId>
+  <artifactId>WSDL-Orchestration-Route</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.2-SNAPSHOT</version>
 
-  <name>A Camel Spring Route</name>
+  <name>Camel WSDL Orchestration Route </name>
   <url>http://www.myorganization.org</url>
 
   <properties>
@@ -85,16 +85,15 @@
 		<version>2.10.0.redhat-60024</version>
 	</dependency>
 
-<!-- para el endpoint cxf (NO USAR AL MISMO TIEMPO CON EL DE jetty) 
- 	<dependency>
+	<!-- LOCAL CAMEL CONTEXT RUN. COMMENT WHEN DEPLOYING IN FUSEIDE-->
+ 	<!-- <dependency>
 		<groupId>org.apache.cxf</groupId>
 		<artifactId>cxf-rt-transports-http-jetty</artifactId>
 		<version>2.7.6</version>
 	</dependency>-->
 
-	<!-- para jetty (NO USAR AL MISMO TIEMPO CON EL DE endpoint cxf)--> 
-  
-	<dependency>
+	<!-- FUSE CAMEL CONTEXT RUN. COMMENT WHEN DEPLOYING IN FUSE--> 
+  	<dependency>
     	<groupId>org.apache.camel</groupId>
     	<artifactId>camel-jetty</artifactId>
     	<version>2.10.0.redhat-60024</version>
@@ -126,7 +125,7 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.6</version>
-    </dependency>
+    </dependency>    
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -140,7 +139,7 @@
       <version>2.10.0.redhat-60024</version>
       <scope>test</scope>
     </dependency>
-
+    
   </dependencies>
 
   <build>
