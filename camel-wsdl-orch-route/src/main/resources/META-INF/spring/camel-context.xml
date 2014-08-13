@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws"
+	   xmlns:soap="http://cxf.apache.org/bindings/soap"       
+	   xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	   xmlns:context="http://www.springframework.org/schema/context" 
+	   	   
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	   
+  <!-- Uso @Autowired -->	   
+  <context:annotation-config/>	   
+
+  <!-- WS ENTRADA PAGARES SOA -->
+  <cxf:cxfEndpoint id="wsLocal" address="http://virtfuse:9000/PagareSOA"
+		endpointName="tns:PagaresPort"
+		serviceName="tns:Pagares" 
+		serviceClass="com.deceval.comercial.pagares.entidad.pagares.PagaresPortType"
+		wsdlURL="wsdl/Pagare.wsdl"
+		xmlns:tns="http://www.deceval.com/comercial/pagares/entidad/Pagares"
+		/>
+
+  <!-- WS AUDITORIA -->
+  <cxf:cxfEndpoint id="wsAuditoria" address="http://virtFUSE:8080/ServicioAuditoriaDeceval/ServicioAuditoria"
+		endpointName="s:AuditoriaPort"
+		serviceName="s:Auditoria" 
+		serviceClass="co.com.deceval.tecnologia.auditoria.util.auditoria.AuditoriaPortType"
+		wsdlURL="wsdl/Auditoria.wsdl"
+		xmlns:s="http://www.deceval.com.co/tecnologia/auditoria/util/Auditoria"	
+		/>
+
+  <!-- WS VALIDACION -->
+  <cxf:cxfEndpoint id="wsValidacion" address="http://virtfuse:8080/ValidadorUsuariosDeceval/ValidarUsuario/ValidarUsuarioPortType"
+		endpointName="tns:ValidarUsuarioPort"
+		serviceName="tns:ValidarUsuario" 
+		serviceClass="com.deceval.tecnologia.usuarios.utilidad.validarusuario.ValidarUsuarioPortType"
+		wsdlURL="wsdl/validarUsuario.wsdl"
+		xmlns:tns="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario"
+		/>
+
+  <!-- WS PAGARE LEGACY -->
+  <cxf:cxfEndpoint id="wsPagareLegacy" address="http://virtFUSE:8080/PagaresLagacy/PagaresSIB"
+		endpointName="s:SDLServiceSoapPort"
+		serviceName="s:SDLService" 
+		serviceClass="com.deceval.sdl.services.SDLService"
+		wsdlURL="wsdl/SDLService.wsdl"
+		xmlns:s="http://deceval.com/sdl/services/"	
+		/>
+
+  <bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
+      <!--  Set relayHeaders to false to drop all SOAP headers -->
+      <property name="relayHeaders" value="false"/>
+  </bean>  
+
+  <!-- BEANS DE PROCESO -->
+  <bean class="com.redhat.demo.deceval2.processor.ProcessorAlmacenaPayload" id="procAlmacenaPayload"></bean>
+  <bean class="com.redhat.demo.deceval2.processor.ProcessorRecuperaPayload" id="procRecuperaPayload"></bean>
+  <!-- FIN BEANS DE PROCESO -->
+
+  <!-- BEAN STORE OBJECTS -->  
+  <bean class="com.redhat.demo.deceval2.Store" id="store"/>
+
+  <camelContext trace="false" streamCache="true" id="Camel-WSDL" xmlns="http://camel.apache.org/schema/spring" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:enc="http://www.deceval.com/comunes/modelos/xsd/Encabezados" xmlns:ns2="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario" xmlns:ns3="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria">
+    <route>
+        <from uri="cxf:bean:wsLocal?dataFormat=MESSAGE&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy"/>
+        <log message="Recibiendo invocacion!\n ${body}"/>
+        <bean ref="procAlmacenaPayload"/>
+        <removeHeaders pattern="*"/>
+        <setHeader headerName="usuario">
+            <xpath resultType="java.lang.String">/soap:Envelope/soap:Header/enc:EncabezadoEntrada/enc:Usuario/text()</xpath>
+        </setHeader>
+        <setHeader headerName="codigoUsuario">
+            <xpath resultType="java.lang.String">/soap:Envelope/soap:Header/enc:EncabezadoEntrada/enc:CodigoUsuario/text()</xpath>
+        </setHeader>
+        <to uri="velocity:requestValidacion.vm"/>
+        <log message="Antes de llamar a validacion\n ${body}"/>
+        <to uri="cxf:bean:wsValidacion?dataFormat=MESSAGE&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy"/>
+        <choice>
+            <when>
+                <xpath>/soap:Envelope/soap:Body/ns2:UsuarioValidarResponse/EsValido/text()	= 'true'</xpath>
+                <log message="Validacion de usuario aceptada"/>
+            </when>
+            <otherwise>
+                <log message="No se acepto la validacion de usuario!!"/>
+                <setHeader headerName="faultMessage">
+                    <simple>Fallo en la validacion</simple>
+                </setHeader>
+                <setHeader headerName="faultDetail">
+                    <simple>No se acepto la validacion para el usuario entrante</simple>
+                </setHeader>
+                <to uri="velocity:fault.vm"/>
+                <setFaultBody>
+                    <simple>${body}</simple>
+                </setFaultBody>
+            </otherwise>
+        </choice>
+        <setHeader headerName="fechaActual">
+            <simple>${date:now:yyyy-MM-dd'T'HH:mm:ss}</simple>
+        </setHeader>
+        <setHeader headerName="horaActual">
+            <simple>${date:now:HH:mm:ss}</simple>
+        </setHeader>
+        <setHeader headerName="nombreServicio">
+            <simple>PagareLegacy</simple>
+        </setHeader>
+        <to uri="velocity:requestAuditoria.vm"/>
+        <removeHeaders pattern="*"/>
+        <log message="Antes de llamar a auditoria\n ${body}"/>
+        <to uri="cxf:bean:wsAuditoria?dataFormat=MESSAGE&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy"/>
+        <log message="Respuesta de auditoria\n ${body}"/>
+        <choice>
+            <when>
+                <xpath>/soap:Envelope/soap:Body/ns3:ResultadoAuditoria/ns3:ResultadoLog/text()	= 'true'</xpath>
+                <log message="Auditoria invocada exitosamente"/>
+            </when>
+            <otherwise>
+                <log message="Auditoria invocada con errores"/>
+            </otherwise>
+        </choice>
+        <removeHeaders pattern="*"/>
+        <bean ref="procRecuperaPayload"/>
+        <log message="Recupera Payload!\n ${body}"/>
+        <to uri="xslt:pagare.xsl"/>
+        <log message="Payload transformado!\n ${body}"/>
+        <to uri="cxf:bean:wsPagareLegacy?dataFormat=MESSAGE&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy"/>
+        <log message="Respuesta serv legacy!\n ${body}"/>
+        <to uri="xslt:respuesta.xsl"/>
+        <log message="Respuesta transformada!\n ${body}"/>
+    </route>
+</camelContext>
+
+</beans>

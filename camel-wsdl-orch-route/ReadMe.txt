@@ -13,3 +13,4 @@ or to run the route from within Maven try
 For more help see the Apache Camel documentation
 
     http://camel.apache.org/
+.

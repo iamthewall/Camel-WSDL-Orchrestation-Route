@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="ValidarUsuario" targetNamespace="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario" elementFormDefault="unqualified" targetNamespace="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario" version="1.0">
+
+  <xs:element name="UsuarioValidar" type="tns:UsuarioValidar"/>
+
+  <xs:element name="UsuarioValidarResponse" type="tns:UsuarioValidarResponse"/>
+
+  <xs:complexType name="UsuarioValidar">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Usuario" type="xs:string"/>
+      <xs:element name="CodigoUsuario" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UsuarioValidarResponse">
+    <xs:sequence>
+      <xs:element name="EsValido" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ValidarResponse">
+    <wsdl:part element="tns:UsuarioValidarResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Validar">
+    <wsdl:part element="tns:UsuarioValidar" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ValidarUsuarioPortType">
+    <wsdl:operation name="Validar">
+      <wsdl:input message="tns:Validar" name="Validar">
+    </wsdl:input>
+      <wsdl:output message="tns:ValidarResponse" name="ValidarResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ValidarUsuarioSoapBinding" type="tns:ValidarUsuarioPortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Validar">
+      <soap12:operation soapAction="Validar" style="document"/>
+      <wsdl:input name="Validar">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ValidarResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ValidarUsuario">
+    <wsdl:port binding="tns:ValidarUsuarioSoapBinding" name="ValidarUsuarioPort">
+      <soap12:address location="http://virtFUSE:8080/ValidadorUsuariosDeceval/ValidarUsuario/ValidarUsuarioPortType"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

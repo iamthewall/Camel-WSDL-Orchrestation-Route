@@ -1,0 +1,10 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:val="http://www.deceval.com/tecnologia/usuarios/utilidad/ValidarUsuario">
+   <soap:Header/>
+   <soap:Body>
+      <val:UsuarioValidar>
+         <!--Optional:-->
+         <Usuario>${headers.usuario}</Usuario>
+         <CodigoUsuario>${headers.codigoUsuario}</CodigoUsuario>
+      </val:UsuarioValidar>
+   </soap:Body>
+</soap:Envelope>

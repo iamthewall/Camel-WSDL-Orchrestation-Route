@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria"
+            xmlns:enc="http://www.deceval.com/comunes/modelos/xsd/Encabezados"
+            targetNamespace="http://www.deceval.com.co/tecnologia/auditoria/utilidad/xsd/Auditoria"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified">
+    
+    <xsd:import namespace="http://www.deceval.com/comunes/modelos/xsd/Encabezados" schemaLocation="EncabezadoEntrada.xsd"/>
+    
+    <xsd:element name="Auditoria" type="tns:AuditoriaType"/>
+    <xsd:element name="ResultadoAuditoria" type="tns:ResultadoAuditoriaType"/>
+    
+    <xsd:complexType name="AuditoriaType">
+        <xsd:sequence>
+            <xsd:element ref="enc:EncabezadoEntrada"/>
+            <xsd:element name="NombreServicio" type="tns:NombreType"/>
+            <xsd:element name="OperacionInvocada" type="tns:NombreType"/>
+            <xsd:element name="FechaInvocacion" type="xsd:dateTime"/>
+            <xsd:element name="OrigenConsumidor" type="xsd:string"/>
+            <xsd:element name="TiempoProcesamiento" type="xsd:long"/>
+            <xsd:element name="ProcesamientoExitoso" type="xsd:boolean"/>
+            <xsd:element name="MensajePeticion" type="xsd:string"/>
+            <xsd:element name="MensajeRespuesta" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="ResultadoAuditoriaType">
+        <xsd:sequence>
+            <xsd:element name="ResultadoLog" type="xsd:boolean"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:simpleType name="NombreType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-zA-Z0-9_]+"/>
+            <xsd:maxLength value="255"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>
