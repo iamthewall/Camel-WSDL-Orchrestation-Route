@@ -86,18 +86,19 @@
 	</dependency>
 
 	<!-- LOCAL CAMEL CONTEXT RUN. COMMENT WHEN DEPLOYING IN FUSEIDE-->
- 	<!-- <dependency>
+ 	<dependency>
 		<groupId>org.apache.cxf</groupId>
 		<artifactId>cxf-rt-transports-http-jetty</artifactId>
 		<version>2.7.6</version>
-	</dependency>-->
+	</dependency>
 
 	<!-- FUSE CAMEL CONTEXT RUN. COMMENT WHEN DEPLOYING IN FUSE--> 
+	<!-- 
   	<dependency>
     	<groupId>org.apache.camel</groupId>
     	<artifactId>camel-jetty</artifactId>
     	<version>2.10.0.redhat-60024</version>
-	</dependency>
+	</dependency>-->
 
 
 	<!-- SOAP MARSHAL AND UNMARSHAL -->
