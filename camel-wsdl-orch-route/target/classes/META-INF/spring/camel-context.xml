@@ -20,6 +20,7 @@
   <context:annotation-config/>	   
 
   <!-- WS ENTRADA PAGARES SOA -->
+  <!--  NOTA: Revisar que la máquina local entienda la dirección 'virtFuse' para eso, editar /etc/hosts -->
   <cxf:cxfEndpoint id="wsLocal" address="http://virtfuse:9000/PagareSOA"
 		endpointName="tns:PagaresPort"
 		serviceName="tns:Pagares" 
@@ -80,6 +81,7 @@
         <setHeader headerName="codigoUsuario">
             <xpath resultType="java.lang.String">/soap:Envelope/soap:Header/enc:EncabezadoEntrada/enc:CodigoUsuario/text()</xpath>
         </setHeader>
+        <log message="DESPUES DE RECIBIR LOS HEADERS !\n ${body}"/>
         <to uri="velocity:requestValidacion.vm"/>
         <log message="Antes de llamar a validacion\n ${body}"/>
         <to uri="cxf:bean:wsValidacion?dataFormat=MESSAGE&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy"/>
@@ -102,6 +104,7 @@
                 </setFaultBody>
             </otherwise>
         </choice>
+        <log message="DESPUES DEL CHOICE !\n ${body}"/>
         <setHeader headerName="fechaActual">
             <simple>${date:now:yyyy-MM-dd'T'HH:mm:ss}</simple>
         </setHeader>
